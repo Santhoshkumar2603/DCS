@@ -20,7 +20,7 @@ public class AppointmentFixing extends AppCompatActivity {
     EditText appointername,appointerage,appointerdob,appointerphone,appointeraddress,appointmenttime,appointmentdate;
     Spinner appointerbloodgrp,appointmentdprt,appointergender;
     Button fixtheappointment;
-    List<Bustime> appointment;
+    List<Appointmentpatient> appointment;
     DatabaseReference databaseappointment;
 
     @Override
@@ -80,10 +80,10 @@ public class AppointmentFixing extends AppCompatActivity {
             String id = databaseappointment.push().getKey();
 
             //creating an name Object
-            Bustime bustime = new Bustime(id, name,age,Dob,phone,address,bloodgrp,gender,Deprt,time,date);
+            Appointmentpatient appointmentpatient = new Appointmentpatient(id, name,age,Dob,phone,address,bloodgrp,gender,Deprt,time,date);
 
             //Saving the name
-            databaseappointment.child(id).setValue(bustime);
+            databaseappointment.child(id).setValue(appointmentpatient);
 
             //setting edittext to blank again
             appointername.setText("");

@@ -1,7 +1,6 @@
 package com.example.dcs;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +9,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class Bustimelist extends ArrayAdapter<Bustime> {
+public class Appointmentpatientlist extends ArrayAdapter<Appointmentpatient> {
     private Activity context;
-    List<Bustime> busestime;
+    List<Appointmentpatient> busestime;
 
-    public Bustimelist(Activity context, List<Bustime> busestime) {
-        super(context, R.layout.layout_bustime_list, busestime);
+    public Appointmentpatientlist(Activity context, List<Appointmentpatient> busestime) {
+        super(context, R.layout.layout_appointmentpatient_list, busestime);
         this.context = context;
         this.busestime = busestime;
     }
@@ -24,7 +23,7 @@ public class Bustimelist extends ArrayAdapter<Bustime> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View listViewItem = inflater.inflate(R.layout.layout_bustime_list, null, true);
+        View listViewItem = inflater.inflate(R.layout.layout_appointmentpatient_list, null, true);
 
         TextView textViewname = (TextView) listViewItem.findViewById(R.id.textViewappointername);
         TextView textViewage = (TextView) listViewItem.findViewById(R.id.textViewappointerage);
@@ -38,17 +37,17 @@ public class Bustimelist extends ArrayAdapter<Bustime> {
         TextView textViewdate = (TextView) listViewItem.findViewById(R.id.textViewappointmentdate);
 
 
-        Bustime bustime = busestime.get(position);
-        textViewname.setText(bustime.getAppointername());
-        textViewage.setText(bustime.getAppointerage());
-        textViewdob.setText(bustime.getAppointerdob());
-        textViewphone.setText(bustime.getAppointerphone());
-        textViewaddress.setText(bustime.getAppointeraddress());
-        textViewbloodgrp.setText(bustime.getAppointerbloodgrp());
-        textViewngender.setText(bustime.getAppointergender());
-        textViewdeprt.setText(bustime.getAppointmentdprt());
-        textViewtime.setText(bustime.getAppointmenttime());
-        textViewdate.setText(bustime.getAppointmentdate());
+        Appointmentpatient appointmentpatient = busestime.get(position);
+        textViewname.setText(appointmentpatient.getAppointername());
+        textViewage.setText(appointmentpatient.getAppointerage());
+        textViewdob.setText(appointmentpatient.getAppointerdob());
+        textViewphone.setText(appointmentpatient.getAppointerphone());
+        textViewaddress.setText(appointmentpatient.getAppointeraddress());
+        textViewbloodgrp.setText(appointmentpatient.getAppointerbloodgrp());
+        textViewngender.setText(appointmentpatient.getAppointergender());
+        textViewdeprt.setText(appointmentpatient.getAppointmentdprt());
+        textViewtime.setText(appointmentpatient.getAppointmenttime());
+        textViewdate.setText(appointmentpatient.getAppointmentdate());
 
 
 

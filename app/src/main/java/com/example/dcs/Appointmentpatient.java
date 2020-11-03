@@ -3,7 +3,7 @@ package com.example.dcs;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
-public class Bustime {
+public class Appointmentpatient {
     private String appointerid;
     private String appointername;
     private String appointerage;
@@ -16,11 +16,11 @@ public class Bustime {
     private String appointmenttime;
     private String appointmentdate;
 
-    public Bustime(){
+    public Appointmentpatient(){
         //this constructor is required
     }
 
-    public Bustime(String appointerid, String appointername, String appointerage, String appointerdob, String appointerphone, String appointeraddress, String appointerbloodgrp, String appointergender, String appointmentdprt, String appointmenttime, String appointmentdate) {
+    public Appointmentpatient(String appointerid, String appointername, String appointerage, String appointerdob, String appointerphone, String appointeraddress, String appointerbloodgrp, String appointergender, String appointmentdprt, String appointmenttime, String appointmentdate) {
         this.appointerid = appointerid;
         this.appointername = appointername;
         this.appointerage = appointerage;
