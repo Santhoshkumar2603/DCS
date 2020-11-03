@@ -74,7 +74,7 @@ public class LoginPage extends AppCompatActivity {
                 if(task.isSuccessful()){
                     progressDialog.dismiss();
                     Toast.makeText(LoginPage.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginPage.this, DashboardPage.class));
+                    startActivity(new Intent(LoginPage.this, AppointmentStatus.class));
                 }else{
                     Toast.makeText(LoginPage.this, "Login Failed", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();

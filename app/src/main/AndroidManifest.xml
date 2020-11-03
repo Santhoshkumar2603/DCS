@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".IntractionPage"></activity>
+        <activity android:name=".AppointmentStatus"></activity>
+        <activity android:name=".AppointmentFixing" />
+        <activity android:name=".IntractionPage" />
         <activity android:name=".PatientDetails" />
         <activity android:name=".DashboardPage" />
         <activity android:name=".RegisterPage" />

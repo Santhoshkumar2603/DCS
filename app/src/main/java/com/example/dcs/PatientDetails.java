@@ -97,7 +97,7 @@ public class PatientDetails extends AppCompatActivity {
 
             //displaying a success toast
             Toast.makeText(this, "YOU ARE REGISTERED SUCCESSFULLY", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(PatientDetails.this, MainActivity.class));
+            startActivity(new Intent(PatientDetails.this, AppointmentFixing.class));
         } else {
             //if the value is not given displaying a toast
             Toast.makeText(this, "Please enter the deatils", Toast.LENGTH_LONG).show();
