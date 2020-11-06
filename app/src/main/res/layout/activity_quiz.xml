@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_quiz"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".QuizActivity">
+
+
+    <ImageView
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginBottom="1dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/cough"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:id="@+id/question"
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
+        android:text="Do you have  cough?"/>
+
+
+
+
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+             <ImageView
+                 android:layout_width="50dp"
+                 android:layout_height="110dp"
+                 android:layout_marginStart="94dp"
+                 android:src="@drawable/ic_yes"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:padding="2dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="94dp"
+                android:text="YES"
+                android:id="@+id/trueButton"
+                android:textColor="#fff"
+                android:background="#2196F3"
+                android:layout_marginBottom="1dp"/>
+
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="-40dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="94dp"
+            android:src="@drawable/ic_no"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:padding="2dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="94dp"
+            android:text="NO"
+            android:id="@+id/falseButton"
+            android:textColor="#fff"
+            android:background="#F44336"
+            android:layout_marginBottom="1dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="-21dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="108dp"
+            android:src="@drawable/ic_score"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="0"
+            android:padding="12dp"
+            android:id="@+id/points"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="106dp"/>
+
+    </LinearLayout>
+</LinearLayout>

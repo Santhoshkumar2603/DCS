@@ -6,9 +6,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,63 +27,50 @@ public class LoginPage extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
 
+    private Spinner spinner;
+    private EditText editText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-        Email = (EditText)findViewById(R.id.userlogemail);
-        Password = (EditText)findViewById(R.id.userlogpassword);
-        Login = (Button)findViewById(R.id.userlogin);
-        userRegistration = (Button) findViewById(R.id.usercreatelog);
+            editText=(EditText) findViewById(R.id.editTextPhone);
+            spinner = (Spinner)findViewById(R.id.spinnerCountries);
+            spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, CountryData.countryNames));
 
+            findViewById(R.id.buttonContinue).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String code = CountryData.countryAreaCodes[spinner.getSelectedItemPosition()];
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        progressDialog = new ProgressDialog(this);
+                    String number = editText.getText().toString().trim();
 
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+                    if (number.isEmpty() || number.length() < 10) {
+                        editText.setError("Valid number is required");
+                        editText.requestFocus();
+                        return;
+                    }
 
-        if(user != null){
-            startActivity(new Intent(LoginPage.this, IntractionPage.class));
-            finish();
+                    String phonenumber = "+" + code + number;
+
+                    Intent intent = new Intent(LoginPage.this, RegisterPage.class);
+                    intent.putExtra("phonenumber", phonenumber);
+                    startActivity(intent);
+
+                }
+            });
+
         }
 
-        Login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                validate(Email.getText().toString(), Password.getText().toString());
-            }
-        });
+        @Override
+        protected void onStart() {
+            super.onStart();
 
-        userRegistration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginPage.this, RegisterPage.class));
-                finish();
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                Intent intent = new Intent(LoginPage.this,Dashboardpage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
-        });
+        }
     }
-
-    private void validate(String userName, String userPassword) {
-
-        progressDialog.setMessage("MAINTAIN SOCIAL DISTANCING");
-        progressDialog.show();
-
-        firebaseAuth.signInWithEmailAndPassword(userName, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    progressDialog.dismiss();
-                    Toast.makeText(LoginPage.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginPage.this, AppointmentStatus.class));
-                }else{
-                    Toast.makeText(LoginPage.this, "Login Failed", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                }
-            }
-        });
-    }
-
-
-
-}

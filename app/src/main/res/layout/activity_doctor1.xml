@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Doctor1">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/doctors1"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="470dp"
+        android:text=" DR.DR. R.V.ANAND, MD, DM"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:gravity="center"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="600dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:text="\nNEUROLOGY CLINIC - Parkinson's Disease, Stroke and Thrombolysis,\n Epilepsy, Nerve, Muscle, Movement, Neuromuscular,\n Spinal and Sleep Disorders, Headache  Electromyography"/>
+
+</RelativeLayout>

@@ -4,69 +4,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterPage">
+    tools:context=".RegisterPage"
+    android:background="#ffffff">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="11dp">
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="350dp"
+            android:layout_marginBottom="250dp"
+            app:srcCompat="@drawable/otp" />
+
 
         <LinearLayout
+            android:id="@+id/frst_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="390dp"
             android:orientation="vertical"
-            android:layout_margin="20dp">
+            android:background="#ffffff">
 
-            <EditText
-                android:id="@+id/newuseremail"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-               android:layout_marginTop="150dp"
-                android:inputType="textEmailAddress"
-                android:hint="EMAIL" />
+                android:layout_marginTop="-1dp"
+                android:gravity="center"
+                android:text="Verification Code"
+                android:textColor="#000000"
+                android:textSize="25dp"
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/newusername"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="Please type the verification code sent\nto your phone number"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:inputType="textPersonName"
-                android:hint="Name" />
+                android:hint="OTP Verification Number"
+                android:id="@+id/editTextCode"
+                android:gravity="center"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"/>
 
-            <EditText
-                android:id="@+id/newuserpassword"
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:hint="CREATE PASSWORD" />
-
-            <Button
-                android:id="@+id/newuserreg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="60dp"
-                android:text="regiter"
-                android:textSize="24sp"
-                tools:text="register" />
-
-            <Button
-                android:id="@+id/backtologin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="110dp"
                 android:layout_marginTop="40dp"
-                android:text="BACK"
-                android:textSize="24sp"
-                 />
-
+                android:layout_marginBottom="40dp"
+                android:layout_marginStart="90dp"
+                android:id="@+id/regtodash"
+                android:clickable="true"
+                 android:layout_marginEnd="90dp"
+                android:src="@drawable/next3"/>
 
         </LinearLayout>
-    </ScrollView>
 
+
+
+
+
+
+
+
+
+
+
+    </RelativeLayout>
+    
 </RelativeLayout>

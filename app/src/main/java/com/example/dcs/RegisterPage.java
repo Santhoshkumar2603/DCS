@@ -7,21 +7,28 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskExecutors;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
+
+import java.util.concurrent.TimeUnit;
 
 public class RegisterPage extends AppCompatActivity {
 
-    private EditText userName, userPassword, userEmail;
-    private Button regButton;
-    private TextView userLogin;
-    private FirebaseAuth firebaseAuth;
+    private String verificationid;
+    private FirebaseAuth mAuth;
+    private ProgressBar progressBar;
+    private EditText editText;
 
 
     @Override
@@ -29,66 +36,87 @@ public class RegisterPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        setupUIViews();
+        mAuth = FirebaseAuth.getInstance();
+        editText = (EditText) findViewById(R.id.editTextCode);
 
-        regButton.setOnClickListener(new View.OnClickListener() {
+        String phonenumber = getIntent().getStringExtra("phonenumber");
+        sendVerificationCode(phonenumber);
+
+        findViewById(R.id.regtodash).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(validate()){
-                    //Upload data to the database
-                    String user_email = userEmail.getText().toString().trim();
-                    String user_password = userPassword.getText().toString().trim();
+            public void onClick(View v) {
 
-                    firebaseAuth.createUserWithEmailAndPassword(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
+                String code = editText.getText().toString().trim();
 
-                            if(task.isSuccessful()){
-                                Toast.makeText(RegisterPage.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(RegisterPage.this, PatientDetails.class));
-                                FirebaseUser user = firebaseAuth.getCurrentUser();
-                            }else{
-                                Toast.makeText(RegisterPage.this, "Registration Failed", Toast.LENGTH_SHORT).show();
-                            }
+                if ((code.isEmpty() || code.length() < 6)){
 
-                        }
-                    });
+                    editText.setError("Enter code...");
+                    editText.requestFocus();
+                    return;
                 }
+                verifyCode(code);
+
             }
         });
-
-        userLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(RegisterPage.this, MainActivity.class));
-                finish();
-            }
-        });
-
     }
 
-    private void setupUIViews(){
-        userName = (EditText)findViewById(R.id.newusername);
-        userPassword = (EditText)findViewById(R.id.newuserpassword);
-        userEmail = (EditText)findViewById(R.id.newuseremail);
-        regButton = (Button)findViewById(R.id.newuserreg);
-        userLogin = (TextView)findViewById(R.id.backtologin);
+    private void verifyCode(String code){
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationid, code);
+        signInWithCredential(credential);
     }
 
-    private Boolean validate(){
-        Boolean result = false;
+    private void signInWithCredential(PhoneAuthCredential credential) {
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
 
-        String name = userName.getText().toString();
-        String password = userPassword.getText().toString();
-        String email = userEmail.getText().toString();
+                            Intent intent = new Intent(RegisterPage.this, Dashboardpage.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-        if(name.isEmpty() || password.isEmpty() || email.isEmpty()){
-            Toast.makeText(this, "Please enter all the details", Toast.LENGTH_SHORT).show();
-        }else{
-            result = true;
+                            startActivity(intent);
+
+                        } else {
+                            Toast.makeText(RegisterPage.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                });
+    }
+
+    private void sendVerificationCode(String number){
+
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                number,
+                120,
+                TimeUnit.SECONDS,
+                TaskExecutors.MAIN_THREAD,
+                mCallBack
+        );
+    }
+
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
+            mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+        @Override
+        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+            super.onCodeSent(s, forceResendingToken);
+            verificationid = s;
         }
 
-        return result;
-    }
+        @Override
+        public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+            String code = phoneAuthCredential.getSmsCode();
+            if (code != null){
+                verifyCode(code);
+            }
+        }
+
+        @Override
+        public void onVerificationFailed(FirebaseException e) {
+            Toast.makeText(RegisterPage.this, e.getMessage(),Toast.LENGTH_LONG).show();
+
+        }
+    };
 }
