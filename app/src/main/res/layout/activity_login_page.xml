@@ -38,7 +38,7 @@
             android:layout_marginLeft="10dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:background="#ffffff">
+            android:background="#f5f5f5">
 
             <Spinner
                 android:layout_width="match_parent"
